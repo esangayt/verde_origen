@@ -6,5 +6,6 @@ like :baby:
     - Branch :star: mslearn-ai-vision
     - Folder :file_folder: `mslearn-ai-vision`
 - [x] Vision Artificial with Open CV
-
+    - Branch :star: master-pdi
+    - Folder :file_folder: `master-pdi`
 
