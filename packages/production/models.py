@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.db import models
 
 # Sumaq
@@ -47,7 +49,22 @@ class Tree(models.Model):
     observations = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.species} in {self.plot.name}"
+        return f"{self.species}: {self.plot.name}"
+
+    @property
+    def age_display(self):
+        if not self.date_planted:
+            return ""
+
+        today = date.today()
+        years = today.year - self.date_planted.year
+        months = today.month - self.date_planted.month
+        if today.day < self.date_planted.day:
+            months -= 1
+        if months < 0:
+            years -= 1
+            months += 12
+        return f"{years} years, {months} months"
 
     class Meta:
         verbose_name = "Tree"
