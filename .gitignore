@@ -123,6 +123,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-**/applications/*/migrations/
+**/packages/*/migrations/
 .idea
 /**/django-key.json
+

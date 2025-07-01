@@ -17,6 +17,9 @@ DJANGO_APPS = [
 ]
 
 LOCAL_APPS = [
+    'packages.production',
+    'packages.farming',
+    'packages.health'
 ]
 
 THIRD_PARTY_APPS = [
