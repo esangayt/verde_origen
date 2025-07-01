@@ -3,8 +3,8 @@ from django.contrib import admin
 from packages.production.models import Plot, Species, Tree
 
 # change name in Django admin
-admin.site.site_header = "Agro Management System"
-admin.site.site_title = "Agro Management System Admin"
+admin.site.site_header = "Sumaq Palta Management System Admin"
+admin.site.site_title = "Sumaq Palta Management System Admin"
 
 
 # Register your models here.

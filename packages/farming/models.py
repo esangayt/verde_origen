@@ -10,7 +10,7 @@ class Harvest(models.Model):
         LITERS = 'l', 'Liters'
         HUNDREDS = 'h', 'Hundreds'
 
-    tree = models.ForeignKey(Tree, on_delete=models.CASCADE)
+    tree = models.ManyToManyField(Tree, related_name='harvests')
     harvest_date = models.DateField()
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
     measurement = models.CharField(choices=KindQuantity.choices, max_length=2,
@@ -19,11 +19,9 @@ class Harvest(models.Model):
     observations = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.tree.species.name} - {self.quantity} on {self.harvest_date}"
+        return f"{self.quantity} on {self.harvest_date}"
 
 class Distribution(models.Model):
-    # sometimes, not all harvest we will sale, same parts I will keep for myself
-    # or I will give to my family, or I will discard
     class Type(models.TextChoices):
         SALE = 'sale', 'Sale'
         FAMILY = 'family', 'Family'
@@ -36,7 +34,9 @@ class Distribution(models.Model):
                              max_length=2,
                             default=Harvest.KindQuantity.HUNDREDS)
     type = models.CharField(choices=Type.choices, max_length=10, default=Type.SALE)
+    price_per_unit = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     observations = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.harvest.tree.species.name} - {self.quantity} {self.get_measurement_display()} distributed as {self.get_type_display()} on {self.distribution_date}"
+        return (f"{self.harvest.tree.count()} - {self.quantity}"
+                f" {self.get_measurement_display()} distributed as {self.get_type_display()} on {self.distribution_date}")
