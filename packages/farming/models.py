@@ -36,7 +36,6 @@ class Distribution(models.Model, QuantityDisplayMixin):
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
     measurement = models.CharField(choices=KindQuantity.choices, max_length=2, default=KindQuantity.UNITS)
     type = models.CharField(choices=Type.choices, max_length=10, default=Type.SALE)
-    price_per_unit = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     quality = models.CharField(
         max_length=20,
         choices=QualityChoices.choices,
