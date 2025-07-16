@@ -9,8 +9,7 @@ class Harvest(models.Model, QuantityDisplayMixin):
     plot = models.ForeignKey(Plot, on_delete=models.CASCADE)
     harvest_date = models.DateField()
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
-    measurement = models.CharField(choices=KindQuantity.choices, max_length=2,
-                            default=KindQuantity.UNITS)
+    measurement = models.CharField(choices=KindQuantity.choices, max_length=2, default=KindQuantity.UNITS)
     observations = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -26,14 +25,25 @@ class Distribution(models.Model, QuantityDisplayMixin):
         FAMILY = 'family', 'Family'
         DISCARD = 'discard'
 
+    class QualityChoices(models.TextChoices):
+        EXCELLENT = 'excellent', 'Excellent'
+        GOOD = 'good', 'Good'
+        FAIR = 'fair', 'Fair'
+        POOR = 'poor', 'Poor'
+
     harvest = models.ForeignKey(Harvest, on_delete=models.CASCADE)
     distribution_date = models.DateField()
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
-    measurement = models.CharField(choices=KindQuantity.choices, max_length=2,
-                                      default=KindQuantity.UNITS)
+    measurement = models.CharField(choices=KindQuantity.choices, max_length=2, default=KindQuantity.UNITS)
     type = models.CharField(choices=Type.choices, max_length=10, default=Type.SALE)
     price_per_unit = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    quality = models.CharField(max_length=100, blank=True, null=True)
+    quality = models.CharField(
+        max_length=20,
+        choices=QualityChoices.choices,
+        default=QualityChoices.GOOD,
+        blank=True,
+        null=True
+    )
     observations = models.TextField(blank=True, null=True)
 
     def __str__(self):
