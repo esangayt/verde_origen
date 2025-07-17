@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from packages.farming.models import Distribution
 
@@ -11,9 +12,11 @@ class Sale(models.Model):
     observations = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return (f"Sale of {self.distribution.quantity} at {self.price_per_hundred} "
-                f"per hundred "
-                f"on {self.date}")
+        return _("Sale of %(quantity)s at %(price)s per hundred on %(date)s") % {
+            "quantity": self.distribution.quantity,
+            "price": self.price_per_hundred,
+            "date": self.date
+        }
 
     @property
     def total_price(self):
@@ -28,7 +31,10 @@ class SaleV2(models.Model):
     observations = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"Sale on {self.date} at {self.total_earnings} per hundred"
+        return _("Sale on %(date)s at %(earnings)s per hundred") % {
+            "date": self.date,
+            "earnings": self.total_earnings
+        }
 
     def update_total_earnings(self):
         total = sum([d.total_price for d in self.distributions.all()])
@@ -54,4 +60,7 @@ class SaleDistribution(models.Model):
         sale.update_total_earnings()
 
     def __str__(self):
-        return f"Sale {self.sale.id} for Distribution {self.distribution.id}"
+        return _("Sale %(sale_id)s for Distribution %(dist_id)s") % {
+            "sale_id": self.sale.id,
+            "dist_id": self.distribution.id
+        }

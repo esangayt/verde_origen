@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from packages.core.mixins import KindQuantity, QuantityDisplayMixin
 from packages.production.models import Tree, Plot
@@ -13,7 +14,12 @@ class Harvest(models.Model, QuantityDisplayMixin):
     observations = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.quantity}({self.measurement}) on {self.harvest_date} from {self.plot.name}"
+        return _("%(quantity)s(%(measurement)s) on %(date)s from %(plot)s") % {
+            "quantity": self.quantity,
+            "measurement": self.measurement,
+            "date": self.harvest_date,
+            "plot": self.plot.name
+        }
 
     def remaining_quantity(self):
         distributed = sum(d.quantity for d in self.distribution_set.all())
@@ -21,15 +27,15 @@ class Harvest(models.Model, QuantityDisplayMixin):
 
 class Distribution(models.Model, QuantityDisplayMixin):
     class Type(models.TextChoices):
-        SALE = 'sale', 'Sale'
-        FAMILY = 'family', 'Family'
-        DISCARD = 'discard'
+        SALE = 'sale', _('Sale')
+        FAMILY = 'family', _('Family')
+        DISCARD = 'discard', _('Discard')
 
     class QualityChoices(models.TextChoices):
-        EXCELLENT = 'excellent', 'Excellent'
-        GOOD = 'good', 'Good'
-        FAIR = 'fair', 'Fair'
-        POOR = 'poor', 'Poor'
+        EXCELLENT = 'excellent', _('Excellent')
+        GOOD = 'good', _('Good')
+        FAIR = 'fair', _('Fair')
+        POOR = 'poor', _('Poor')
 
     harvest = models.ForeignKey(Harvest, on_delete=models.CASCADE)
     distribution_date = models.DateField()
@@ -46,8 +52,13 @@ class Distribution(models.Model, QuantityDisplayMixin):
     observations = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return (f"{self.harvest.plot.name} - {self.quality} - {self.quantity} "
-                f" distributed as {self.get_type_display()} on {self.distribution_date}")
+        return (_("%(plot)s - %(quality)s - %(quantity)s distributed as %(type)s on %(date)s") % {
+            "plot": self.harvest.plot.name,
+            "quality": self.quality,
+            "quantity": self.quantity,
+            "type": self.get_type_display(),
+            "date": self.distribution_date
+        })
 
     def clean(self):
         # Ensure quantity does not exceed remaining harvest
@@ -57,7 +68,7 @@ class Distribution(models.Model, QuantityDisplayMixin):
         if self.quantity > remaining:
             from django.core.exceptions import ValidationError
             raise ValidationError({
-                'quantity': f"Cannot distribute more than remaining ({remaining} {self.harvest.measurement})"
+                'quantity': _(f"Cannot distribute more than remaining ({remaining} {self.harvest.measurement})")
             })
 
     def save(self, *args, **kwargs):

@@ -1,16 +1,23 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 from packages.production.models import Plot, Species, Tree
 
 # change name in Django admin
-admin.site.site_header = "Sumaq Palta Management System Admin"
-admin.site.site_title = "Sumaq Palta Management System Admin"
+admin.site.site_header = _("Sumaq Palta Management System Admin")
+admin.site.site_title = _("Sumaq Palta Management System Admin")
 
 
 # Register your models here.
 @admin.register(Plot)
 class PlotAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('id', 'name', 'area_m2', 'location', 'date_planted')
+    search_fields = ('name', 'location')
+    list_filter = ('date_planted',)
+    ordering = ('name',)
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('trees')
 
 @admin.register(Species)
 class SpeciesAdmin(admin.ModelAdmin):
