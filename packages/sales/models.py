@@ -6,10 +6,10 @@ from packages.farming.models import Distribution
 
 # Create your models here.
 class Sale(models.Model):
-    date = models.DateField()
-    price_per_hundred = models.DecimalField(max_digits=10, decimal_places=2)
-    distribution = models.OneToOneField(Distribution, on_delete=models.PROTECT)
-    observations = models.TextField(blank=True, null=True)
+    date = models.DateField(verbose_name=_('date'))
+    price_per_hundred = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('price per hundred'))
+    distribution = models.OneToOneField(Distribution, on_delete=models.PROTECT, verbose_name=_('distribution'))
+    observations = models.TextField(blank=True, null=True, verbose_name=_('observations'))
 
     def __str__(self):
         return _("Sale of %(quantity)s at %(price)s per hundred on %(date)s") % {
@@ -26,9 +26,14 @@ class Sale(models.Model):
 
 
 class SaleV2(models.Model):
-    date = models.DateField()
-    total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    observations = models.TextField(blank=True, null=True)
+    date = models.DateField(verbose_name=_('date'))
+    total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_('total earnings'))
+    observations = models.TextField(blank=True, null=True, verbose_name=_('observations'))
+
+    class Meta:
+        verbose_name = _('sale')
+        verbose_name_plural = _('sales')
+        ordering = ['-date']
 
     def __str__(self):
         return _("Sale on %(date)s at %(earnings)s per hundred") % {
@@ -43,11 +48,17 @@ class SaleV2(models.Model):
 
 
 class SaleDistribution(models.Model):
-    sale = models.ForeignKey(SaleV2, on_delete=models.CASCADE, related_name='distributions')
-    distribution = models.OneToOneField(Distribution, on_delete=models.CASCADE, limit_choices_to={'type': 'sale'})
-    price_per_hundred = models.DecimalField(max_digits=10, decimal_places=2)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    observations = models.TextField(blank=True, null=True)
+    sale = models.ForeignKey(SaleV2, on_delete=models.CASCADE, related_name='distributions', verbose_name=_('sale'))
+    distribution = models.OneToOneField(Distribution, on_delete=models.CASCADE, limit_choices_to={'type': 'sale'},
+                                        verbose_name=_('distribution'))
+    price_per_hundred = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('price per hundred'))
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_('total price'))
+    observations = models.TextField(blank=True, null=True, verbose_name=_('observations'))
+
+    class Meta:
+        verbose_name = _('distribution')
+        verbose_name_plural = _('distributions')
+        ordering = ['-sale__date']
 
     def save(self, *args, **kwargs):
         self.total_price = round(self.price_per_hundred * self.distribution.quantity / 100, 2)

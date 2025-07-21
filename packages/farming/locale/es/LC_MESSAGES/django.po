@@ -1,0 +1,116 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-20 20:24-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+
+msgid "%(quantity)s(%(measurement)s) on %(date)s from %(plot)s"
+msgstr "%(quantity)s(%(measurement)s) en %(date)s de %(plot)s"
+
+msgid "Sale"
+msgstr "Venta"
+
+msgid "Family"
+msgstr "Familia"
+
+msgid "Discard"
+msgstr "Descartar"
+
+msgid "Excellent"
+msgstr "Excelente"
+
+msgid "Good"
+msgstr "Bueno"
+
+msgid "Fair"
+msgstr "Regular"
+
+msgid "Poor"
+msgstr "Malo"
+
+msgid "%(plot)s - %(quality)s - %(quantity)s distributed as %(type)s on %(date)s"
+msgstr "%(plot)s - %(quality)s - %(quantity)s distribuido como %(type)s en %(date)s"
+
+msgid "Cannot distribute more than remaining (%(remaining)s %(measurement)s)"
+msgstr "No se puede distribuir más que lo restante (%(remaining)s %(measurement)s)"
+
+# Harvest
+msgid "plot"
+msgstr "parcela"
+
+msgid "harvest date"
+msgstr "fecha de cosecha"
+
+msgid "quantity"
+msgstr "cantidad"
+
+msgid "measurement"
+msgstr "medida"
+
+msgid "observations"
+msgstr "observaciones"
+
+# Distribution
+msgid "harvest"
+msgstr "cosecha"
+
+msgid "harvests"
+msgstr "cosechas"
+
+msgid "distribution date"
+msgstr "fecha de distribución"
+
+msgid "type"
+msgstr "tipo"
+
+msgid "quality"
+msgstr "calidad"
+
+msgid "Quantity (display)"
+msgstr "Cantidad (visual)"
+
+msgid "Kilograms"
+msgstr "Kilogramos"
+
+msgid "Units"
+msgstr "Unidades"
+
+msgid "Hundreds"
+msgstr "Cientos"
+
+msgid "Liters"
+msgstr "Litros"
+
+msgid "distribution"
+msgstr "distribución"
+
+msgid "distributions"
+msgstr "distribuciones"
+
+msgid "%(quantity)s kg"
+msgstr "%(quantity)s kg"
+
+msgid "%(quantity)s l"
+msgstr "%(quantity)s l"
+
+msgid "%(quantity)s hundreds"
+msgstr "%(quantity)s cientos"
+
+msgid "%(quantity).2f hundreds"
+msgstr "%(quantity).2f cientos"

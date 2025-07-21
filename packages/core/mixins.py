@@ -1,11 +1,12 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class KindQuantity(models.TextChoices):
-    KILOGRAMS = 'kg', 'Kilograms'
-    LITERS = 'l', 'Liters'
-    HUNDREDS = 'h', 'Hundreds'
-    UNITS = 'u', 'Units'
+    KILOGRAMS = 'kg', _('Kilograms')
+    LITERS = 'l', _('Liters')
+    HUNDREDS = 'h', _('Hundreds')
+    UNITS = 'u', _('Units')
 
 
 class QuantityDisplayMixin:
@@ -15,12 +16,14 @@ class QuantityDisplayMixin:
         quantity = getattr(self, 'quantity', None)
         kind_quantity = globals().get('KindQuantity')
         if measurement == kind_quantity.KILOGRAMS:
-            return f"{quantity} kg"
+            return _("%(quantity)s kg") % {"quantity": quantity}
         elif measurement == kind_quantity.LITERS:
-            return f"{quantity} l"
+            return _("%(quantity)s l") % {"quantity": quantity}
         elif measurement == kind_quantity.HUNDREDS:
-            return f"{quantity} hundreds"
+            return _("%(quantity)s hundreds") % {"quantity": quantity}
         elif measurement == kind_quantity.UNITS:
-            return f"{quantity / 100:.2f} hundreds"
+            return _("%(quantity).2f hundreds") % {"quantity": quantity / 100}
         else:
             return str(quantity)
+
+    quantity_display.fget.short_description = _("Quantity (display)")

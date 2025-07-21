@@ -21,91 +21,79 @@ msgstr ""
 
 # Production package messages
 
-msgid "Sumaq Palta Management System Admin"
-msgstr "Administrador del Sistema Sumaq Palta"
+
+msgid "%(name)s - (%(area)s m²) with %(trees)s 🌳"
+msgstr "%(name)s - (%(area)s m²) con %(trees)s 🌳"
 
 msgid "production"
 msgstr "producción"
 
-msgid "Plot"
+msgid "plot"
 msgstr "parcela"
 
-msgid "Plots"
+msgid "plots"
 msgstr "parcelas"
 
 msgid "name"
 msgstr "Nombre"
 
+msgid "description"
+msgstr "Descripción"
+
 msgid "area"
 msgstr "Área (m²)"
 
-msgid "Location"
+msgid "location"
 msgstr "Ubicación"
 
-msgid "Date planted"
+msgid "date planted"
 msgstr "fecha de siembra"
 
-msgid "Observations"
+msgid "observations"
 msgstr "Observaciones"
 
+# Species package messages
 
-msgid "%(quantity)s(%(measurement)s) on %(date)s from %(plot)s"
-msgstr "%(quantity)s(%(measurement)s) en %(date)s de %(plot)s"
-
-msgid "%(name)s - (%(area)s m²) with %(trees)s 🌳"
-msgstr "%(name)s - (%(area)s m²) con %(trees)s"
-
-msgid "Sale"
-msgstr "Venta"
-
-msgid "Family"
-msgstr "Familia"
-
-msgid "Discard"
-msgstr "Descartar"
-
-msgid "Excellent"
-msgstr "Excelente"
-
-msgid "Good"
-msgstr "Bueno"
-
-msgid "Fair"
-msgstr "Regular"
-
-msgid "Poor"
-msgstr "Malo"
-
-msgid "%(plot)s - %(quality)s - %(quantity)s distributed as %(type)s on %(date)s"
-msgstr "%(plot)s - %(quality)s - %(quantity)s distribuido como %(type)s en %(date)s"
-
-msgid "Cannot distribute more than remaining (%(remaining)s %(measurement)s)"
-msgstr "No se puede distribuir más que lo restante (%(remaining)s %(measurement)s)"
-
-msgid "production"
-msgstr "producción"
-
-msgid "Specie"
+msgid "specie"
 msgstr "Especie"
 
-msgid "Species"
+msgid "species"
 msgstr "Especies"
+
+# Tree package messages
+
+msgid "tree"
+msgstr "Árbol"
+
+msgid "trees"
+msgstr "Árboles"
 
 msgid "%(years)d years, %(months)d months"
 msgstr "%(years)d años, %(months)d meses"
 
-msgid "Tree"
-msgstr "Árbol"
+msgid "healthy"
+msgstr "Saludable"
 
-msgid "Trees"
-msgstr "Árboles"
+msgid "diseased"
+msgstr "Enfermo"
 
-msgid "Sale of %(quantity)s at %(price)s per hundred on %(date)s"
-msgstr "Venta de %(quantity)s a %(price)s por cien en %(date)s"
+msgid "dead"
+msgstr "Muerto"
 
-msgid "Sale on %(date)s at %(earnings)s per hundred"
-msgstr "Venta en %(date)s a %(earnings)s por cien"
+msgid "code"
+msgstr "Código"
 
-msgid "Sale %(sale_id)s for Distribution %(dist_id)s"
-msgstr "Venta %(sale_id)s para Distribución %(dist_id)s"
+msgid "height_m"
+msgstr "Altura (m)"
 
+msgid "date_planted"
+msgstr "Fecha de siembra"
+
+msgid "age_years"
+msgstr "Años de edad"
+
+msgid "status"
+msgstr "Estado"
+
+msgid "ordering"
+msgstr "Orden"

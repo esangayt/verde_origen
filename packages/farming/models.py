@@ -7,11 +7,17 @@ from packages.production.models import Tree, Plot
 
 # Create your models here.
 class Harvest(models.Model, QuantityDisplayMixin):
-    plot = models.ForeignKey(Plot, on_delete=models.CASCADE)
-    harvest_date = models.DateField()
-    quantity = models.DecimalField(max_digits=10, decimal_places=2)
-    measurement = models.CharField(choices=KindQuantity.choices, max_length=2, default=KindQuantity.UNITS)
-    observations = models.TextField(blank=True, null=True)
+    plot = models.ForeignKey(Plot, on_delete=models.CASCADE, verbose_name=_('plot'))
+    harvest_date = models.DateField(verbose_name=_('harvest date'))
+    quantity = models.DecimalField(_('quantity'), max_digits=10, decimal_places=2)
+    measurement = models.CharField(_('measurement'), choices=KindQuantity.choices, max_length=2,
+                                   default=KindQuantity.UNITS)
+    observations = models.TextField(_('observations'), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('harvest')
+        verbose_name_plural = _('harvests')
+        ordering = ['-harvest_date']
 
     def __str__(self):
         return _("%(quantity)s(%(measurement)s) on %(date)s from %(plot)s") % {
@@ -25,6 +31,7 @@ class Harvest(models.Model, QuantityDisplayMixin):
         distributed = sum(d.quantity for d in self.distribution_set.all())
         return self.quantity - distributed
 
+
 class Distribution(models.Model, QuantityDisplayMixin):
     class Type(models.TextChoices):
         SALE = 'sale', _('Sale')
@@ -37,19 +44,20 @@ class Distribution(models.Model, QuantityDisplayMixin):
         FAIR = 'fair', _('Fair')
         POOR = 'poor', _('Poor')
 
-    harvest = models.ForeignKey(Harvest, on_delete=models.CASCADE)
-    distribution_date = models.DateField()
-    quantity = models.DecimalField(max_digits=10, decimal_places=2)
-    measurement = models.CharField(choices=KindQuantity.choices, max_length=2, default=KindQuantity.UNITS)
-    type = models.CharField(choices=Type.choices, max_length=10, default=Type.SALE)
-    quality = models.CharField(
-        max_length=20,
-        choices=QualityChoices.choices,
-        default=QualityChoices.GOOD,
-        blank=True,
-        null=True
-    )
-    observations = models.TextField(blank=True, null=True)
+    harvest = models.ForeignKey(Harvest, on_delete=models.CASCADE, verbose_name=_('harvest'))
+    distribution_date = models.DateField(verbose_name=_('distribution date'))
+    quantity = models.DecimalField(_('quantity'), max_digits=10, decimal_places=2)
+    measurement = models.CharField(_('measurement'), choices=KindQuantity.choices, max_length=2,
+                                   default=KindQuantity.UNITS)
+    type = models.CharField(_('type'), choices=Type.choices, max_length=10, default=Type.SALE)
+    quality = models.CharField(_('quality'), max_length=20, choices=QualityChoices.choices, default=QualityChoices.GOOD,
+                               blank=True, null=True)
+    observations = models.TextField(_('observations'), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('distribution')
+        verbose_name_plural = _('distributions')
+        ordering = ['-distribution_date']
 
     def __str__(self):
         return (_("%(plot)s - %(quality)s - %(quantity)s distributed as %(type)s on %(date)s") % {

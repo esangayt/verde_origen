@@ -22,3 +22,13 @@ DATABASES = {
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 # MEDIA_ROOT = BASE_DIR.child('media')
 
+LANGUAGES = [
+    ('en', 'English'),
+    ('es', 'Español'),
+]
+
+# print(BASE_DIR.child("djangoProjects").child("locale"))
+#
+# LOCALE_PATHS = [
+#     BASE_DIR.child("djangoProjects").child("locale")
+# ]

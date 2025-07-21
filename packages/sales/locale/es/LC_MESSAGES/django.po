@@ -1,0 +1,56 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-20 21:09-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+msgid "Sale of %(quantity)s at %(price)s per hundred on %(date)s"
+msgstr "Venta de %(quantity)s a %(price)s por cien en %(date)s"
+
+msgid "Sale on %(date)s at %(earnings)s per hundred"
+msgstr "Venta en %(date)s a %(earnings)s por cien"
+
+msgid "Sale %(sale_id)s for Distribution %(dist_id)s"
+msgstr "Venta %(sale_id)s para Distribución %(dist_id)s"
+
+msgid "sale"
+msgstr "venta"
+
+msgid "sales"
+msgstr "ventas"
+
+msgid "distribution"
+msgstr "distribución"
+
+msgid "distributions"
+msgstr "distribuciones"
+
+msgid "price per hundred"
+msgstr "precio por ciento"
+
+msgid "total price"
+msgstr "precio total"
+
+msgid "observations"
+msgstr "Observaciones"
+
+msgid "date"
+msgstr "fecha"
+
+msgid "total earnings"
+msgstr "ganancias totales"
