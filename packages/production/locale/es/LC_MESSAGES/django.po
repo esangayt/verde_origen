@@ -97,3 +97,6 @@ msgstr "Estado"
 
 msgid "ordering"
 msgstr "Orden"
+
+msgid "Number of Trees"
+msgstr "Número de árboles"

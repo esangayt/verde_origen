@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from packages.production.views import plot_sales_pdf
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('plots/<int:plot_id>/sales-pdf/', plot_sales_pdf, name='plot_sales_pdf'),  # fuera del admin
 ]

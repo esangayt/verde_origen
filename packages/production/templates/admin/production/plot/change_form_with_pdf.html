@@ -1,0 +1,21 @@
+{% extends "admin/change_form.html" %}
+{% load i18n static %}
+
+{% block object-tools %}
+    {{ block.super }}
+    {% if original %}
+        <form method="get" action="{% url 'plot_sales_pdf' plot_id=original.id %}" style="display:inline; margin-left: 10px;">
+            {% csrf_token %}
+            <div class="form-row" style="margin-bottom: 0; align-items: center; gap: 8px;">
+                <input type="date" name="start_date" value="{{ request.GET.start_date|default:'' }}" class="vDateField admin-date-field"/>
+                <span>-</span>
+                <input type="date" name="end_date" value="{{ request.GET.end_date|default:'' }}" class="vDateField admin-date-field"/>
+                <button type="submit" class="button default">{% trans "Descargar PDF de Ventas" %}</button>
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+{% endblock %}
