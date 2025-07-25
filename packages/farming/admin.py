@@ -17,12 +17,12 @@ class DistributionInline(admin.TabularInline):
 @admin.register(Harvest)
 class HarvestAdmin(admin.ModelAdmin):
     list_display = ('id', 'harvest_date', 'quantity', 'quantity_display', 'measurement')
-    #
-    # def get_inline_instances(self, request, obj=None):
-    #     if obj is None:
-    #         return []
-    #     return super().get_inline_instances(request, obj)
-    #
+
+    def get_inline_instances(self, request, obj=None):
+        if obj is None:
+            return []
+        return super().get_inline_instances(request, obj)
+
     inlines = [DistributionInline]
 
 
