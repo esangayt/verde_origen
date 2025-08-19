@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+
 from packages.production.models import Plot, Species, Tree
+from .forms import PlotSalesFilterForm
 
 # change name in Django admin
 admin.site.site_header = _("Green always Management System Admin")
@@ -43,6 +45,11 @@ class PlotAdmin(admin.ModelAdmin):
         return format_html(' '.join(summary)) if summary else '-'
 
     trees_status_summary.short_description = _("Number of Trees")
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['form'] = PlotSalesFilterForm(request.GET or None)
+        return super().change_view(request, object_id, form_url, extra_context=extra_context)
 
 
 @admin.register(Species)

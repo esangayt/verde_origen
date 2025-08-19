@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404
@@ -8,17 +10,23 @@ from reportlab.graphics.shapes import Drawing, String
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
-from packages.production.models import Plot, Tree
-from packages.sales.models import SaleDistribution
+
 from packages.farming.models import Harvest, Distribution
-from collections import defaultdict
+from packages.production.models import Plot
+from packages.sales.models import SaleDistribution
+from .forms import PlotSalesFilterForm
 
 
 @staff_member_required
 def plot_sales_pdf(request, plot_id):
-    # Filtros por fecha
-    start_date = request.GET.get('start_date')
-    end_date = request.GET.get('end_date')
+    # Usar el formulario para los filtros de fecha
+    form = PlotSalesFilterForm(request.GET or None)
+    if form.is_valid():
+        start_date = form.cleaned_data.get('start_date')
+        end_date = form.cleaned_data.get('end_date')
+    else:
+        start_date = None
+        end_date = None
 
     try:
         plot = get_object_or_404(Plot, pk=plot_id)

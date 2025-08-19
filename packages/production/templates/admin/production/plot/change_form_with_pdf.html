@@ -1,21 +1,55 @@
 {% extends "admin/change_form.html" %}
 {% load i18n static %}
 
-{% block object-tools %}
+{% block object-tools-items %}
     {{ block.super }}
     {% if original %}
-        <form method="get" action="{% url 'plot_sales_pdf' plot_id=original.id %}" style="display:inline; margin-left: 10px;">
-            {% csrf_token %}
-            <div class="form-row" style="margin-bottom: 0; align-items: center; gap: 8px;">
-                <input type="date" name="start_date" value="{{ request.GET.start_date|default:'' }}" class="vDateField admin-date-field"/>
-                <span>-</span>
-                <input type="date" name="end_date" value="{{ request.GET.end_date|default:'' }}" class="vDateField admin-date-field"/>
-                <button type="submit" class="button default">{% trans "Descargar PDF de Ventas" %}</button>
-            </div>
-        </form>
+        <li>
+            <a href="#" id="open-date-filter-modal" class="button" style="vertical-align: middle;">
+                <span class="icon-calendar"></span> {% trans "Reporte de ventas" %}
+            </a>
+        </li>
     {% endif %}
 {% endblock %}
 
 {% block content %}
     {{ block.super }}
+    {% if original %}
+        <div id="date-filter-modal"
+             style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3);">
+            <div style="background:white; border-radius:6px; max-width:340px; margin:10vh auto; padding:20px 24px 16px 24px; position:relative; box-shadow:0 2px 16px rgba(0,0,0,0.2); font-family:inherit;">
+                <button type="button" id="close-date-filter-modal"
+                        style="position:absolute; right:12px; top:8px; background:none; border:none; font-size:18px; cursor:pointer">
+                    &times;
+                </button>
+                <h3 style="margin-top:0; font-size:16px; font-weight:600; color:#444;">{% trans "Filtrar ventas por fecha" %}</h3>
+                <form method="get" class="reset-admin-styles" action="{% url 'plot_sales_pdf' plot_id=original.id %}">
+                    {% csrf_token %}
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px;">
+                        {{ form.start_date }}
+                        <span>-</span>
+                        {{ form.end_date }}
+                    </div>
+                    <button type="submit" class="button default"
+                            style="width:100%;">{% trans "Descargar PDF de Ventas" %}</button>
+
+                </form>
+            </div>
+        </div>
+        <script>
+            document.getElementById('open-date-filter-modal').onclick = function (e) {
+                e.preventDefault();
+                document.getElementById('date-filter-modal').style.display = 'block';
+            };
+            document.getElementById('close-date-filter-modal').onclick = function () {
+                document.getElementById('date-filter-modal').style.display = 'none';
+            };
+            window.onclick = function (event) {
+                var modal = document.getElementById('date-filter-modal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+        </script>
+    {% endif %}
 {% endblock %}

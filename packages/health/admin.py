@@ -1,15 +1,15 @@
-from django.contrib import admin
+from io import BytesIO
 
-from packages.health.models import Agrochemical, KindAgrochemical, ChemicalControl
-from packages.production.models import Plot
+from django.contrib import admin
 from django.contrib import messages
-from reportlab.pdfgen import canvas
+from django.http import HttpResponse
+from django.utils import timezone
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
-from io import BytesIO
-from django.utils import timezone
-from django.contrib import admin
-from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+
+from packages.health.models import Agrochemical, KindAgrochemical, ChemicalControl
+
 
 @admin.register(KindAgrochemical)
 class KindAgrochemicalAdmin(admin.ModelAdmin):
@@ -108,7 +108,7 @@ class AgrochemicalAdmin(admin.ModelAdmin):
                     self._pdf_encabezado(p, width, A4[1])
                     y = A4[1] - 3 * cm
 
-                linea = f"- {control.date:%Y-%m-%d}, Parcela: {control.plot}, " \
+                linea = f"- {control.date:%Y-%m-%d}, Parcela: {control.plot.name}, " \
                         f"Dosis: {control.dosage}{control.unit}, " \
                         f"Resp: {control.responsible}"
                 p.drawString(x + 10, y, linea)
