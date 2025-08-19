@@ -126,5 +126,4 @@ dmypy.json
 packages/*/migrations/**/*.py
 !packages/*/migrations/__init__.py
 .idea
-/**/django-key.json
 
