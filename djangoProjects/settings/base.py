@@ -1,9 +1,10 @@
+from decouple import config
+from django.core.management.utils import get_random_secret_key
 from unipath import Path
-from decouple import config, Csv
 
 BASE_DIR = Path(__file__).ancestor(3)
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config("DJANGO_SECRET_KEY", get_random_secret_key())
 DEBUG = config('APP_DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = []
 
@@ -103,3 +104,4 @@ LOCALE_PATHS = [
     BASE_DIR.child("djangoProjects").child("locale")
 ]
 
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", "127.0.0.1,localhost").split(",")

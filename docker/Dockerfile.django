@@ -1,0 +1,38 @@
+# docker/Dockerfile.django
+
+FROM python:3.12-slim-bookworm
+
+# Seguridad y consistencia
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_DEFAULT_TIMEOUT=100
+
+# Instala dependencias del sistema necesarias
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crea un usuario no root para seguridad
+RUN useradd -m appuser
+
+WORKDIR /app
+
+# Solo copia lo necesario (usa .dockerignore también)
+COPY requirements.txt .
+
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Luego copia el resto del código (evita copiar archivos secretos)
+COPY . .
+
+# Usa usuario no root
+USER appuser
+
+# Expón el puerto
+EXPOSE 8000
+
+CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "djangoProject.wsgi:application"]
