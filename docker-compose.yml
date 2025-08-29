@@ -13,7 +13,6 @@ services:
       - static_volume:/app/staticfiles
     depends_on:
       - db
-      - redis
     restart: always
     read_only: true
     networks:
@@ -31,12 +30,6 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-    restart: always
-    networks:
-      - backend
-
-  redis:
-    image: redis:7
     restart: always
     networks:
       - backend

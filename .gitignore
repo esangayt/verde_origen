@@ -123,7 +123,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-packages/*/migrations/**/*.py
-!packages/*/migrations/__init__.py
-.idea
+.idea/
 
