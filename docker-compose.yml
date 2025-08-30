@@ -18,7 +18,7 @@ services:
     networks:
       - backend
     environment:
-      - DJANGO_SETTINGS_MODULE=GoodBiteBackend.settings.local
+      - DJANGO_SETTINGS_MODULE=djangoProjects.settings.prod
 
   db:
     image: postgres:15

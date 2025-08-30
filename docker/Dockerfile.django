@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
     curl \
+    gettext \
     && rm -rf /var/lib/apt/lists/*
 
 # Crea un usuario no root para seguridad
@@ -29,10 +30,17 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Luego copia el resto del código (evita copiar archivos secretos)
 COPY . .
 
+# Crea directorios de estáticos y media y asigna permisos
+RUN mkdir -p /app/staticfiles && \
+    chown -R appuser:appuser /app
+
+# Compilar mensajes como root
+RUN django-admin compilemessages
+
 # Usa usuario no root
 USER appuser
 
 # Expón el puerto
 EXPOSE 8000
 
-CMD ["gunicorn", "--worker-tmp-dir", "/dev/shm","-b", "0.0.0.0:8000", "djangoProjects.wsgi:application"]
+CMD ["gunicorn", "--worker-tmp-dir", "/dev/shm","-b", "0.0.0.0:8000", "djangoProjects.wsgi"]
