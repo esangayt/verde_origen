@@ -27,6 +27,10 @@ LANGUAGES = [
     ('es', 'Español'),
 ]
 
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR.child('staticfiles')
+STATICFILES_DIRS = [BASE_DIR.child('static')]
+
 # print(BASE_DIR.child("djangoProjects").child("locale"))
 #
 # LOCALE_PATHS = [

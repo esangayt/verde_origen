@@ -93,12 +93,3 @@ USE_TZ = True
 LOCALE_PATHS = [BASE_DIR.child("locale")]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-
-SECURE_SSL_REDIRECT = True
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", "http://127.0.0.1,http://localhost").split(",")

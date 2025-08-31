@@ -35,9 +35,18 @@ elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR.child('staticfiles')
 STATICFILES_DIRS = [BASE_DIR.child('static')]
-#
+
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = BASE_DIR.child('media')
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+SECURE_SSL_REDIRECT = True
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", "http://127.0.0.1,http://localhost").split(",")
